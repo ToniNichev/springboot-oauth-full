@@ -1,0 +1,56 @@
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+
+        function prepareQSParams(qs) {
+                var params = '';
+                var l = 0;
+                for(property in qs) {
+                params += property + '=' + qs[property];
+                l ++;
+                if(l < Object.keys(qs).length) {
+                    params += '&';
+                }
+                }
+                return params;
+            }
+
+        function signInWithApple() {
+            var qs = {
+            'client_id'     : 'com.toni-develops.public.oauth-with-all-providers-service',
+            'redirect_uri'  : 'https://toninichev.com/examples/oauth/oauth-service/callbacks/iframed/callback.php',
+            'response_type' : 'code id_token',
+            'scope'         : 'name email',
+            'response_mode' : 'form_post',
+            }
+
+            var url = 'https://appleid.apple.com/auth/authorize?' + prepareQSParams(qs);
+            showModalPopUp(url);
+        }
+
+      function signInWithGoogle() {
+        var qs = {
+          'client_id'     : '989056576533-mtef8cl5is5ogjh3np580ireurns7l5k.apps.googleusercontent.com',
+          //'redirect_uri'  : 'https://toninichev.com/examples/oauth/oauth-service/callbacks/iframed/callback.php',
+
+          'redirect_uri'  : 'https://toninichev.com/examples/oauth/oauth-service/callbacks/callback.php?provider=google',
+          //'redirect_uri'  : 'https://toninichev.com/examples/oauth/oauth-service/callbacks/callback.php',
+          'response_type' : 'code',
+          'scope'         : 'openid email profile',
+          'state'         : '123',
+        }
+
+        var url = 'https://accounts.google.com/o/oauth2/v2/auth?' + prepareQSParams(qs);
+        debugger;
+        location.href = url;
+      }
+
+      function initOnLoad() {
+        //signInWithGoogle();
+      }
+    </script>
+</head>
+<body onload="initOnLoad()">
+</body>
+</html>
