@@ -21,14 +21,14 @@ import org.springframework.http.ResponseEntity;
 public class PopupController {
 
     @GetMapping("/popup")
-    public String popup(@CookieValue(name = "my-cookie", defaultValue = "default-user-id") String userId,
+    public String popup(@CookieValue(name = "site", defaultValue = "site") String cookieSite,
                         HttpServletResponse response,
-                        @RequestParam(name="site", required=false, defaultValue="World") String site, Model model) {
+                        @RequestParam(name="site", required=false, defaultValue="site") String qsSite,
+                        @RequestParam(name="page", required=false, defaultValue="page") String qsPage,
+                        Model model) {
 
-        System.out.println("Hello, world!");
-        System.out.println(userId);
 
-        ResponseCookie resCookie = ResponseCookie.from("my-cookie", "my-cookie-value")
+        ResponseCookie resCookieSite = ResponseCookie.from("site", qsSite)
                 .httpOnly(false)
                 .sameSite("None")
                 .secure(true)
@@ -36,7 +36,18 @@ public class PopupController {
                 .maxAge(60 * 60 * 10)
                 .build();
 
-                response.addHeader("Set-Cookie", resCookie.toString());
+                response.addHeader("Set-Cookie", resCookieSite.toString());
+
+
+        ResponseCookie resCookiePage = ResponseCookie.from("page", qsPage)
+                .httpOnly(false)
+                .sameSite("None")
+                .secure(true)
+                .path("/")
+                .maxAge(60 * 60 * 10)
+                .build();
+
+        response.addHeader("Set-Cookie", resCookiePage.toString());
 
         return "popup";
     }

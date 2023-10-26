@@ -150,9 +150,7 @@
               'scope'         : 'openid email profile',
               'state'         : '123',
             }
-
-            // var url = 'https://accounts.google.com/o/oauth2/v2/auth?' + prepareQSParams(qs);
-            var url = 'https://toninichev.com/examples/oauth/oauth-service/sign-in-iframe-popup.php?site=sitetwo&page=index.php'
+            var url = 'https://toninichev.com:8080/popup?site=sitetwo&page=index.php'
             console.log(">>>>", url);
             showModalPopUp(url);
           }
