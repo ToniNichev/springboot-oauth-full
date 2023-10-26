@@ -29,7 +29,7 @@ public class PopupController {
         System.out.println(userId);
 
         ResponseCookie resCookie = ResponseCookie.from("my-cookie", "my-cookie-value")
-                .httpOnly(true)
+                .httpOnly(false)
                 .sameSite("None")
                 .secure(true)
                 .path("/")
