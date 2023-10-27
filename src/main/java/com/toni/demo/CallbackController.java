@@ -35,7 +35,7 @@ public class CallbackController {
             put ("client_id", "989056576533-mtef8cl5is5ogjh3np580ireurns7l5k.apps.googleusercontent.com");
             put ("client_secret", "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");
             put ("redirect_uri", "https://toninichev.com:8080/callback?provider=google");
-            put ("code", "4%2F0AfJohXnuxJTGJB__HO7-2yh-beLukDjblISCP93kTohrynKbG75MwllyJcBLNW7ZEQZ8vQ");
+            put ("code", qsCode);
         }};
 
         var objectMapper = new ObjectMapper();
@@ -43,12 +43,6 @@ public class CallbackController {
 
         try {
             requestBody = objectMapper.writeValueAsString(values);
-
-            /*
-            String postBody = "grant_type=authorization_code client_id=989056576533-mtef8cl5is5ogjh3np580ireurns7l5k.apps.googleusercontent.com client_secret=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 redirect_uri=https://toninichev.com:8080/callback?provider=google code=";
-            System.out.println("Post body:");
-            System.out.println(postBody);
-             */
 
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
