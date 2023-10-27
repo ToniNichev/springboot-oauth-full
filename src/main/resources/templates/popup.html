@@ -34,20 +34,19 @@
           'client_id'     : '989056576533-mtef8cl5is5ogjh3np580ireurns7l5k.apps.googleusercontent.com',
           //'redirect_uri'  : 'https://toninichev.com/examples/oauth/oauth-service/callbacks/iframed/callback.php',
 
-          'redirect_uri'  : 'https://toninichev.com/examples/oauth/oauth-service/callbacks/callback.php?provider=google',
-          //'redirect_uri'  : 'https://toninichev.com/examples/oauth/oauth-service/callbacks/callback.php',
+          'redirect_uri'  : 'https://toninichev.com:8080/callback?provider=google',
           'response_type' : 'code',
           'scope'         : 'openid email profile',
           'state'         : '123',
         }
 
         var url = 'https://accounts.google.com/o/oauth2/v2/auth?' + prepareQSParams(qs);
-        debugger;
+        //console.log(">>>>", url);
         location.href = url;
       }
 
       function initOnLoad() {
-        // signInWithGoogle();
+        signInWithGoogle();
       }
     </script>
 </head>
