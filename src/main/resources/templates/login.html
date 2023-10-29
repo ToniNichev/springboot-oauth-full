@@ -76,10 +76,10 @@
         </style>
 
     <script>
-          // Rely message from the popup to the parent document.
+          // Pass message from the popup to the parent document.
           function receiveMessage(event)
           {
-            if(event.origin !== "https://toninichev.com")
+            if(event.origin !== "https://toninichev.com:8080")
               return
             parent.postMessage(event.data, "*");
           }

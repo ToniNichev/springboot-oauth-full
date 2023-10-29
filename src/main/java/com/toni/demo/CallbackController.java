@@ -2,23 +2,22 @@ package com.toni.demo;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
-import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.util.HashMap;
-import java.util.Map;
 
-import static java.net.http.HttpRequest.BodyPublishers.*;
-
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 @Controller
 
@@ -54,6 +53,8 @@ public class CallbackController {
 
             // Print the response
             System.out.println(response.body());
+
+            model.addAttribute("response", response.body());
 
         } catch (IOException e) {
             System.out.println(e);

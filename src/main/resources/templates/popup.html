@@ -41,7 +41,8 @@
         }
 
         var url = 'https://accounts.google.com/o/oauth2/v2/auth?' + prepareQSParams(qs);
-        //console.log(">>>>", url);
+        console.log("INITIATIONG REQUEST TO GOOGLE WITH URL:", url);
+        debugger;
         location.href = url;
       }
 
@@ -51,5 +52,6 @@
     </script>
 </head>
 <body onload="initOnLoad()">
+loading ...
 </body>
 </html>
