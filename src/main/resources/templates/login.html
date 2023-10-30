@@ -140,17 +140,9 @@
           }
 
           function signInWithGoogle() {
-            var qs = {
-              'client_id'     : '989056576533-mtef8cl5is5ogjh3np580ireurns7l5k.apps.googleusercontent.com',
-              //'redirect_uri'  : 'https://toninichev.com/examples/oauth/oauth-service/callbacks/iframed/callback.php',
-
-              'redirect_uri'  : 'https://toninichev.com/examples/oauth/oauth-service/callbacks/callback.php?provider=google',
-              //'redirect_uri'  : 'https://toninichev.com/examples/oauth/oauth-service/callbacks/callback.php',
-              'response_type' : 'code',
-              'scope'         : 'openid email profile',
-              'state'         : '123',
-            }
-            var url = 'https://toninichev.com:8080/popup?site=sitetwo&page=index.php'
+            // Opens popup and sets up 'site', 'page', and passes state to be verified on the back end.
+            const state = document.querySelector("input[name=state]").value;
+            var url = `https://toninichev.com:8080/popup?site=sitetwo&page=index&state=${state}`
             console.log("Opening a Popup url, so Google Log-In will be called there : ", url);
             showModalPopUp(url);
           }
@@ -164,8 +156,8 @@
     <div></div>
 </header>
 <div id="signInPanel">
-    <p th:text="| App is working ... Hello , ${name}!|" />
-    <p th:text="| time: ${time}|" />
+    <p th:text="| state , ${state}!|" />
+    <input type="hidden" th:value="${state}" name="state" />
     <!-- Sign-In with Apple -->
     <div class="signInAppleWrapper">
         <button id="apple-auth-button" type="button" tabindex="0" onclick="signInWithApple()">

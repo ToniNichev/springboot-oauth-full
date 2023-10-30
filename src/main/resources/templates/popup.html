@@ -30,19 +30,18 @@
         }
 
       function signInWithGoogle() {
+        const state = document.querySelector("input[name=state]").value;
         var qs = {
           'client_id'     : '989056576533-mtef8cl5is5ogjh3np580ireurns7l5k.apps.googleusercontent.com',
-          //'redirect_uri'  : 'https://toninichev.com/examples/oauth/oauth-service/callbacks/iframed/callback.php',
-
           'redirect_uri'  : 'https://toninichev.com:8080/callback?provider=google',
           'response_type' : 'code',
           'scope'         : 'openid email profile',
-          'state'         : '123',
+          'state'         : state,
         }
 
         var url = 'https://accounts.google.com/o/oauth2/v2/auth?' + prepareQSParams(qs);
-        console.log("INITIATING REQUEST TO GOOGLE WITH URL:", url);
-        debugger;
+        // Redirect to Google authentication passing all mandatory parameters.
+        console.log(url);
         location.href = url;
       }
 
@@ -52,6 +51,7 @@
     </script>
 </head>
 <body onload="initOnLoad()">
-loading ...
+    <input type="hidden" th:value="${state}" name="state" />
+    loading ...
 </body>
 </html>

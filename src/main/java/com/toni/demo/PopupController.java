@@ -23,10 +23,13 @@ public class PopupController {
     @GetMapping("/popup")
     public String popup(@CookieValue(name = "site", defaultValue = "site") String cookieSite,
                         HttpServletResponse response,
-                        @RequestParam(name="site", required=false, defaultValue="site") String qsSite,
-                        @RequestParam(name="page", required=false, defaultValue="page") String qsPage,
+                        @RequestParam(name="site", required=false, defaultValue="") String qsSite,
+                        @RequestParam(name="page", required=false, defaultValue="") String qsPage,
+                        @RequestParam(name="state", required=false, defaultValue="") String qsState,
                         Model model) {
 
+        // Sending state param to the front end to include it in Google request.
+        model.addAttribute("state", qsState);
 
         ResponseCookie resCookieSite = ResponseCookie.from("site", qsSite)
                 .httpOnly(false)

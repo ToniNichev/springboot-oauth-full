@@ -15,20 +15,32 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.util.HashMap;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import static com.toni.demo.MD5.getMD5;
 
 @Controller
 
 public class CallbackController {
     @GetMapping("/callback")
-    public String login(@RequestParam(name="code", required=false, defaultValue="xxx") String qsCode,
+    public String login(
+            @RequestParam(name="code", required=false, defaultValue="xxx") String qsCode,
+            @RequestParam(name="state", required=false, defaultValue="xxx") String qsState,
                         Model model) throws InterruptedException {
 
-        // String uri = "https://public.toni-develops.com/";
-        String uri = "https://www.googleapis.com/oauth2/v4/token";
+        String stateHash = getMD5("passphrase-123");
 
+        System.out.println("STATE:");
+        System.out.println(qsState);
+
+        System.out.println("stateHash:");
+        System.out.println(stateHash);
+
+        if(!qsState.equals(stateHash)) {
+            System.out.println("STATE DON'T MATCH !!!!");
+            return "forbidden";
+        }
+
+        // @to-do: add this to external config file
+        String uri = "https://www.googleapis.com/oauth2/v4/token";
         var values = new HashMap<String, String>() {{
             put("grant_type", "authorization_code");
             put ("client_id", "989056576533-mtef8cl5is5ogjh3np580ireurns7l5k.apps.googleusercontent.com");
@@ -40,6 +52,7 @@ public class CallbackController {
         var objectMapper = new ObjectMapper();
         String requestBody;
 
+        // @to-do: use java library to exchange code for JWT
         try {
             requestBody = objectMapper.writeValueAsString(values);
 
@@ -51,9 +64,7 @@ public class CallbackController {
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // Print the response
-            System.out.println(response.body());
-
+            // Response with JWT
             model.addAttribute("response", response.body());
 
         } catch (IOException e) {
